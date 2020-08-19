@@ -1,4 +1,4 @@
-package com.cm.security.controller.config;
+package com.cm.security.controller;
 
 import javax.annotation.security.PermitAll;
 import org.springframework.security.access.prepost.PreAuthorize;

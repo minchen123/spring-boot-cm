@@ -1,4 +1,4 @@
-package com.cm.security.controller.config;
+package com.cm.security.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
