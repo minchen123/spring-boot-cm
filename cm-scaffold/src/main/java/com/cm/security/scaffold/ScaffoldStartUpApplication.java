@@ -1,4 +1,4 @@
-package com.cm.scaffold;
+package com.cm.security.scaffold;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,4 +14,6 @@ public class ScaffoldStartUpApplication {
     public static void main(String[] args) {
         SpringApplication.run(ScaffoldStartUpApplication.class,args);
     }
+
+
 }

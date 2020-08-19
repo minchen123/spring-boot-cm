@@ -1,4 +1,4 @@
-package com.cm.scaffold.controller;
+package com.cm.security.scaffold.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
