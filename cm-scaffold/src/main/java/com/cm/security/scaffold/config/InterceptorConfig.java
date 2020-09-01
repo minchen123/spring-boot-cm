@@ -13,11 +13,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
 
-
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LogsHandlerInterceptor());
+        registry.addInterceptor(new LogsHandlerInterceptor())
+            .addPathPatterns("/**");  //所有路径拦截
+            //.excludePathPatterns("/login");
     }
 
 }
