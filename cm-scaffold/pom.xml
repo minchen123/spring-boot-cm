@@ -15,7 +15,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <properties></properties>
+    <properties>
+        <swagger2.version>2.9.2</swagger2.version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -33,6 +35,19 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!--基于Swagger-UI拓展 API文档生产工具-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>2.0.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
         </dependency>
 
     </dependencies>

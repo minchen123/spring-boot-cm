@@ -22,9 +22,12 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, S
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e)
         throws IOException
     {
-        System.out.println("未授权。。。。");
-//        int code = HttpStatus.UNAUTHORIZED;
-//        String msg = StringUtils.format("请求访问：{}，认证失败，无法访问系统资源", request.getRequestURI());
-//        ServletUtils.renderString(response, JSON.toJSONString(AjaxResult.error(code, msg)));
+        String content = "未授权。。。。";
+        response.setStatus(200);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        response.getWriter().print(content);
+
     }
 }
+

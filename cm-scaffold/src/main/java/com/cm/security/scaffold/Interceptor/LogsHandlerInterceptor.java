@@ -15,13 +15,14 @@ public class LogsHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        String uri = httpServletRequest.getRequestURI();
-        if(uri.indexOf("user") != -1) {
-            return true;
-        } else {
-            return false;
-        }
+//        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+//        String uri = httpServletRequest.getRequestURI();
+//        if(uri.indexOf("user") != -1) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+        return true;
     }
 
     @Override

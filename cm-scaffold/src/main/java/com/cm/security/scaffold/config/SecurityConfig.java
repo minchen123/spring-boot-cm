@@ -3,10 +3,12 @@ package com.cm.security.scaffold.config;
 import com.cm.security.scaffold.handle.AuthenticationEntryPointImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 /**
  * @Description  spring security配置
@@ -15,7 +17,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
  */
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
 
     /**
      * 认证失败处理类
@@ -72,4 +73,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .headers().frameOptions().disable();
     }
 
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.
+            //默认内存
+                inMemoryAuthentication()
+            .passwordEncoder(NoOpPasswordEncoder.getInstance())
+            .withUser("admin").password("admin").roles("ADMIN")
+            // 配置 normal 用户
+            .and().withUser("normal").password("normal").roles("NORMAL");
+
+    }
+
 }
+
