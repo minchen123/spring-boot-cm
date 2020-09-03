@@ -1,4 +1,4 @@
-package com.cm.security.scaffold.Interceptor;
+package com.cm.scaffold.Interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

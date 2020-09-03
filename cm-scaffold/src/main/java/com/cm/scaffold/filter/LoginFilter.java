@@ -1,4 +1,4 @@
-package com.cm.security.scaffold.filter;
+package com.cm.scaffold.filter;
 
 import java.io.IOException;
 import javax.servlet.Filter;

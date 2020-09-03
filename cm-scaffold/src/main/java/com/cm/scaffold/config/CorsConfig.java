@@ -1,4 +1,4 @@
-package com.cm.security.scaffold.config;
+package com.cm.scaffold.config;
 
 import java.util.Collections;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;

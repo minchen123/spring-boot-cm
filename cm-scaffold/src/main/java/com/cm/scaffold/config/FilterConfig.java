@@ -1,6 +1,6 @@
-package com.cm.security.scaffold.config;
+package com.cm.scaffold.config;
 
-import com.cm.security.scaffold.filter.LoginFilter;
+import com.cm.scaffold.filter.LoginFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

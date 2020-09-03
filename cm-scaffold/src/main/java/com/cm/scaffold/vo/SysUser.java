@@ -1,4 +1,4 @@
-package com.cm.security.scaffold.vo;
+package com.cm.scaffold.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

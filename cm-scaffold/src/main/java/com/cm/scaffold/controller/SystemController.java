@@ -1,6 +1,6 @@
-package com.cm.security.scaffold.controller;
+package com.cm.scaffold.controller;
 
-import com.cm.security.scaffold.vo.SysUser;
+import com.cm.scaffold.vo.SysUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;

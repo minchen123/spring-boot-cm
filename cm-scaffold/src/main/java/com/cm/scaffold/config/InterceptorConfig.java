@@ -1,6 +1,6 @@
-package com.cm.security.scaffold.config;
+package com.cm.scaffold.config;
 
-import com.cm.security.scaffold.Interceptor.LogsHandlerInterceptor;
+import com.cm.scaffold.Interceptor.LogsHandlerInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

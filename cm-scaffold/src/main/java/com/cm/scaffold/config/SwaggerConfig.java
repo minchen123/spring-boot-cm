@@ -1,4 +1,4 @@
-package com.cm.security.scaffold.config;
+package com.cm.scaffold.config;
 
 import java.util.ArrayList;
 import java.util.List;

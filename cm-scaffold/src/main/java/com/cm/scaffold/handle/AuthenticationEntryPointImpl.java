@@ -1,4 +1,4 @@
-package com.cm.security.scaffold.handle;
+package com.cm.scaffold.handle;
 
 import java.io.IOException;
 import java.io.Serializable;
