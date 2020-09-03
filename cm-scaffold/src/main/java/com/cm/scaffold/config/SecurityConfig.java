@@ -41,17 +41,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+//        httpSecurity
+//            // CSRF禁用，因为不使用session
+//            .csrf().disable()
+//            // 认证失败处理类
+//            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+//            // 基于token，所以不需要session
+//            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+//            // 过滤请求
+//            .authorizeRequests()
+//            // 对于登录login 验证码captchaImage 允许匿名访问
+//            .antMatchers("/login", "/captchaImage").anonymous()
+//            .antMatchers(
+//                HttpMethod.GET,
+//                "/*.html",
+//                "/**/*.html",
+//                "/**/*.css",
+//                "/**/*.js"
+//            ).permitAll()
+//            .antMatchers("/profile/**").anonymous()
+//            .antMatchers("/common/download**").anonymous()
+//            .antMatchers("/common/download/resource**").anonymous()
+//            .antMatchers("/swagger-ui.html").anonymous()
+//            .antMatchers("/swagger-resources/**").anonymous()
+//            .antMatchers("/webjars/**").anonymous()
+//            .antMatchers("/*/api-docs").anonymous()
+//            .antMatchers("/druid/**").anonymous()
+//            // 除上面外的所有请求全部需要鉴权认证
+//            .anyRequest().authenticated()
+//            .and()
+//            .headers().frameOptions().disable();
         httpSecurity
-            // CSRF禁用，因为不使用session
-            .csrf().disable()
-            // 认证失败处理类
-            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-            // 基于token，所以不需要session
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-            // 过滤请求
             .authorizeRequests()
-            // 对于登录login 验证码captchaImage 允许匿名访问
-            .antMatchers("/login", "/captchaImage").anonymous()
             .antMatchers(
                 HttpMethod.GET,
                 "/*.html",
@@ -59,25 +80,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/**/*.css",
                 "/**/*.js"
             ).permitAll()
-            .antMatchers("/profile/**").anonymous()
-            .antMatchers("/common/download**").anonymous()
-            .antMatchers("/common/download/resource**").anonymous()
             .antMatchers("/swagger-ui.html").anonymous()
             .antMatchers("/swagger-resources/**").anonymous()
             .antMatchers("/webjars/**").anonymous()
-            .antMatchers("/*/api-docs").anonymous()
-            .antMatchers("/druid/**").anonymous()
-            // 除上面外的所有请求全部需要鉴权认证
-            .anyRequest().authenticated()
-            .and()
-            .headers().frameOptions().disable();
+            .antMatchers("/*/api-docs").anonymous();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.
             //默认内存
-                inMemoryAuthentication()
+             inMemoryAuthentication()
             .passwordEncoder(NoOpPasswordEncoder.getInstance())
             .withUser("admin").password("admin").roles("ADMIN")
             // 配置 normal 用户

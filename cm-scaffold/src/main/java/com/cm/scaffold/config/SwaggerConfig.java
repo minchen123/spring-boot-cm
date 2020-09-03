@@ -35,7 +35,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("后台小分队")
                 .select() // 选择那些路径和api会生成document
-                .apis(RequestHandlerSelectors.basePackage("com.cm.security.scaffold.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.cm.scaffold.controller"))
                 .paths(PathSelectors.any()) // 对所有路径进行监控
                 .build().globalOperationParameters(pars)
                 .pathMapping("/")

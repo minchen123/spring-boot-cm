@@ -1,3 +1,9 @@
 spring:
   profiles:
     active: dev
+
+logging:
+  config: classpath:log4j.properties
+  level:
+    root: info
+    com.cm.scaffold: debug

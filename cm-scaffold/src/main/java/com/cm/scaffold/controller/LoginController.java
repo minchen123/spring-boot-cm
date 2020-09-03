@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RequestMapping("/user")
 @RestController
-@Api(tags = "登录模块")
+@Api(tags = "登录功能")
 public class LoginController {
 
     @GetMapping("/login")
