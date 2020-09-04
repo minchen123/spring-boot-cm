@@ -14,6 +14,4 @@ public class ScaffoldStartUpApplication {
     public static void main(String[] args) {
         SpringApplication.run(ScaffoldStartUpApplication.class,args);
     }
-
-
 }

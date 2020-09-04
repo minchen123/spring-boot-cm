@@ -1,0 +1,14 @@
+- 过滤器
+- 拦截器
+- 跨域配置
+- KnifeSwagger后端文档接口
+- SpringSecurity框架
+- 代码生成（待做，自定义模板方式）
+- 统一拦截配置
+- Log4j2配置
+- BaseController、Utils等基类工具类封装
+- 考虑MapStruct是否有必要接入（待做）
+- JWT（待做）
+- JUnit测试
+- Vue简单的搭建融合（待做） 
+
