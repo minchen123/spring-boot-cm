@@ -9,7 +9,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 /**
- * @Description todo
+ * @Description 跨域配置
  * @Author cm
  * @Date 2020/9/1 10:23
  */

@@ -1,6 +1,8 @@
 package com.cm.scaffold.controller;
 
 import com.cm.scaffold.base.BaseController;
+import com.cm.scaffold.common.exception.CustomException;
+import com.cm.scaffold.common.exception.DemoException;
 import com.cm.scaffold.vo.SysUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +27,9 @@ public class LoginController extends BaseController {
     @ApiOperation("登录接口调试")
     public Object login(){
         log.info("测试log4j2日志框架");
+        if(true){
+            throw new DemoException("11111111");
+        }
         return "123";
     }
 
@@ -32,6 +37,7 @@ public class LoginController extends BaseController {
     @ApiOperation("注册接口在线测试")
     public Object regist(SysUser sysUser) {
         return sysUser;
+
     }
 
 }

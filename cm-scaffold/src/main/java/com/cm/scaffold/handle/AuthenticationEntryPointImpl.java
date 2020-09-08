@@ -1,6 +1,5 @@
 package com.cm.scaffold.handle;
 
-import com.cm.scaffold.base.ResultBody;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.servlet.http.HttpServletRequest;
