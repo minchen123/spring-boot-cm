@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-      测试下Git凭据
+      登陆信息,修改凭据
   </div>
 </template>
 
