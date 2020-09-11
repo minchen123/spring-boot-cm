@@ -1,0 +1,24 @@
+#snmp监控配置
+snmp:
+  setting:
+    community: public
+    version: 1  #version1 = 0;version2c = 1;version3 =3，默认version2c
+
+spring:
+  task:
+    scheduling:
+      thread-name-prefix: snmp-demo- # 线程池的线程名的前缀。默认为 scheduling- ，建议根据自己应用来设置
+      pool:
+        size: 10 # 线程池大小。默认为 1 ，根据自己应用来设置
+      shutdown:
+        await-termination: true # 应用关闭时，是否等待定时任务执行完成。默认为 false ，建议设置为 true
+        await-termination-period: 60 # 等待任务完成的最大时长，单位为秒。默认为 0 ，根据自己应用来设置
+
+#监控服务器配置
+server:
+  ip: 127.0.0.1
+  port: 161
+
+#每隔5秒发送请求
+job:
+  cron:  "*/5 * * * * ?"

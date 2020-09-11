@@ -12,6 +12,7 @@
     <modules>
         <module>cm-scaffold</module>
         <module>cm-scaffold-common</module>
+        <module>cm-snmp-demo</module>
     </modules>
 
     <properties>
