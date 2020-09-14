@@ -26,16 +26,22 @@ public class SnmpDemo {
     private String community;
     @Value("${snmp.setting.version}")
     private int version;
+    @Value("${snmp.setting.timeout}")
+    private long timeout;
+    @Value("${snmp.setting.retries}")
+    private int retries;
 
     @Scheduled(cron = "${job.cron}")
     private void getServerInfo() {
-        SnmpService snmpService=new SnmpService(ip,port,community, version);
+        SnmpService snmpService=new SnmpService(ip,port,community, version,timeout,retries);
         try {
-            snmpService.getSnmpGet(Constants.sysDescr,Constants.sysName,Constants.sysObjectID,Constants.ifNumber);
-            snmpService.snmpWalk2(Constants.ifOids);
+            snmpService.getSnmpGet(Constants.sysDescr,Constants.sysName,Constants.ssCpuIdle);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //snmpService.snmpWalk2(Constants.ifOids);
+        //snmpService.collectDisk();
+        snmpService.snmpWalkDisk(Constants.oidsDisk);
     }
 
 }

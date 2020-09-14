@@ -1,8 +1,10 @@
 #snmp监控配置
 snmp:
   setting:
-    community: public
-    version: 1  #version1 = 0;version2c = 1;version3 =3，默认version2c
+    community: public #snmp团体名
+    version: 1  #设置版本，version1 = 0;version2c = 1;version3 =3，默认version2c
+    timeout: 2000 #设置超时
+    retries: 2  #设置超时重试次数，大于0
 
 spring:
   task:
