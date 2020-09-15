@@ -18,6 +18,11 @@ public class Constants {
     public static final String ssCpuIdle = ".1.3.6.1.4.1.2021.11.11.0";
 
 
+    public static final String memory = ".1.3.6.1.2.1.25.2.2.0";
+
+
+
+
     /**
      * Wakl请求方式
      */
@@ -46,6 +51,7 @@ public class Constants {
 //        ".1.3.6.1.2.1.2.2.1.22"
 //    };
 
+    //网络接口
     public static final String[] ifOids = new String[]{
         ".1.3.6.1.2.1.2.2.1.1",
         ".1.3.6.1.2.1.2.2.1.2",
@@ -71,11 +77,14 @@ public class Constants {
         ".1.3.6.1.2.1.2.2.1.22"
     };
 
+    //获取磁盘命令指令
     public static String[] oidsDisk = {"1.3.6.1.2.1.25.2.3.1.2",  //type 存储单元类型
         "1.3.6.1.2.1.25.2.3.1.3",  //descr
         "1.3.6.1.2.1.25.2.3.1.4",  //unit 存储单元大小
         "1.3.6.1.2.1.25.2.3.1.5",  //size 总存储单元数
-        "1.3.6.1.2.1.25.2.3.1.6"}; //used 使用存储单元数;
+        "1.3.6.1.2.1.25.2.3.1.6"   //used 使用存储单元数
+    };
+
 
 
 }
