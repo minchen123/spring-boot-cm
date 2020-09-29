@@ -28,6 +28,7 @@ public class LoginFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         String uri = httpServletRequest.getRequestURI();
         if(uri.indexOf("user") != -1) {
+            System.out.println("11111");
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
