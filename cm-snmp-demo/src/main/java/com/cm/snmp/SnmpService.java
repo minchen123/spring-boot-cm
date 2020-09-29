@@ -110,6 +110,7 @@ public class SnmpService {
      * @param oids
      */
     public void snmpWalk2(String oids[]) {
+        //HashMap<String,String> mapList=new ArrayList<String,String>();
         // 设置TableUtil的工具
         TableUtils utils = new TableUtils(snmp, new DefaultPDUFactory(PDU.GETBULK));
         utils.setMaxNumRowsPerPDU(2);
@@ -124,6 +125,7 @@ public class SnmpService {
             TableEvent te = (TableEvent) list.get(i);
             // 对每一行结果进行再次拆分
             VariableBinding[] vb = te.getColumns();
+            //HashMap<String,String> map  = new HashMap<String,String>();
             if (vb != null) {
                 for (int j = 0; j < vb.length; j++) {
                     System.out.println(vb[j].toString());
@@ -147,64 +149,6 @@ public class SnmpService {
     }
 
 
-    //获取cpu使用率
-    public static void collectCPU() {
-        TransportMapping transport = null ;
-        Snmp snmp = null ;
-        CommunityTarget target;
-        String[] oids = {"1.3.6.1.2.1.25.3.3.1.2"};
-        try {
-            transport = new DefaultUdpTransportMapping();
-            snmp = new Snmp(transport);//创建snmp
-            snmp.listen();//监听消息
-            target = new CommunityTarget();
-            target.setCommunity(new OctetString("public"));
-            target.setRetries(2);
-            target.setAddress(GenericAddress.parse("udp:39.105.178.126/161"));
-            target.setTimeout(8000);
-            target.setVersion(SnmpConstants.version2c);
-            TableUtils tableUtils = new TableUtils(snmp, new PDUFactory() {
-                @Override
-                public PDU createPDU(Target arg0) {
-                    PDU request = new PDU();
-                    request.setType(PDU.GET);
-                    return request;
-                }
-
-                @Override
-                public PDU createPDU(MessageProcessingModel messageProcessingModel) {
-                    return null;
-                }
-            });
-            OID[] columns = new OID[oids.length];
-            for (int i = 0; i < oids.length; i++)
-                columns[i] = new OID(oids[i]);
-            List<TableEvent> list = tableUtils.getTable(target, columns, null, null);
-            if(list.size()==1 && list.get(0).getColumns()==null){
-                System.out.println(" null");
-            }else{
-                int percentage = 0;
-                for(TableEvent event : list){
-                    VariableBinding[] values = event.getColumns();
-                    if(values != null)
-                        percentage += Integer.parseInt(values[0].getVariable().toString());
-                }
-                System.out.println("CPU利用率为："+percentage/list.size()+"%");
-            }
-        } catch(Exception e){
-            e.printStackTrace();
-        }finally{
-            try {
-                if(transport!=null)
-                    transport.close();
-                if(snmp!=null)
-                    snmp.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     //获取内存相关信息
     public static void collectMemory() {
         TransportMapping transport = null ;
@@ -215,11 +159,8 @@ public class SnmpService {
             "1.3.6.1.2.1.25.2.3.1.4",  //unit 存储单元大小
             "1.3.6.1.2.1.25.2.3.1.5",  //size 总存储单元数
             "1.3.6.1.2.1.25.2.3.1.6"}; //used 使用存储单元数;
-
-//        String PHYSICAL_MEMORY_OID = "1.3.6.1.2.1.25.2.1.2";//物理存储
-//        String VIRTUAL_MEMORY_OID = "1.3.6.1.2.1.25.2.1.3"; //虚拟存储
-        String PHYSICAL_MEMORY_OID = "1.3.6.1.2.1.25.2.3.1.2.1";//物理存储
-        String VIRTUAL_MEMORY_OID = "1.3.6.1.2.1.25.2.3.1.2.3"; //虚拟存储
+        String PHYSICAL_MEMORY_OID = "1.3.6.1.2.1.25.2.1.2";//物理存储
+        String VIRTUAL_MEMORY_OID = "1.3.6.1.2.1.25.2.1.3"; //虚拟存储
         try {
             transport = new DefaultUdpTransportMapping();
             snmp = new Snmp(transport);//创建snmp
@@ -238,7 +179,6 @@ public class SnmpService {
                     return request;
                 }
 
-                @Override
                 public PDU createPDU(MessageProcessingModel messageProcessingModel) {
                     return null;
                 }
@@ -257,7 +197,7 @@ public class SnmpService {
                     int unit = Integer.parseInt(values[2].getVariable().toString());//unit 存储单元大小
                     int totalSize = Integer.parseInt(values[3].getVariable().toString());//size 总存储单元数
                     int usedSize = Integer.parseInt(values[4].getVariable().toString());//used  使用存储单元数
-                    String oid = values[0].getOid().toString();
+                    String oid = values[0].getVariable().toString();
                     if (PHYSICAL_MEMORY_OID.equals(oid)){
                         System.out.println("PHYSICAL_MEMORY----->物理内存大小："+(long)totalSize * unit/(1024*1024*1024)+"G   内存使用率为："+(long)usedSize*100/totalSize+"%");
                     }else if (VIRTUAL_MEMORY_OID.equals(oid)) {
@@ -278,6 +218,7 @@ public class SnmpService {
             }
         }
     }
+
 
 
     //获取磁盘相关信息
@@ -369,113 +310,13 @@ public class SnmpService {
                 VariableBinding[] values = event.getColumns();
                 if(values == null ||!DISK_OID.equals(values[0].getVariable().toString()))
                     continue;
-                String name = values[1].getVariable().toString();
                 int unit = Integer.parseInt(values[2].getVariable().toString());//unit 存储单元大小
                 int totalSize = Integer.parseInt(values[3].getVariable().toString());//size 总存储单元数
                 int usedSize = Integer.parseInt(values[4].getVariable().toString());//used  使用存储单元数
-                System.out.println("磁盘名称："+ name  + " 磁盘大小："+(long)totalSize*unit/(1024*1024*1024)+"G   磁盘使用率为："+(long)usedSize*100/totalSize+"%");
+                System.out.println("磁盘大小："+(long)totalSize*unit/(1024*1024*1024)+"G   磁盘使用率为："+(long)usedSize*100/totalSize+"%");
             }
         }
     }
-
-
-    //服务器接口集合
-    public static void collectInterface() {
-        TransportMapping transport = null ;
-        Snmp snmp = null ;
-        CommunityTarget target;
-        String[] IF_OIDS =
-            {"1.3.6.1.2.1.2.2.1.1",  //Index
-                "1.3.6.1.2.1.2.2.1.2",  //descr
-                "1.3.6.1.2.1.2.2.1.3",  //type
-                "1.3.6.1.2.1.2.2.1.5",  //speed
-                "1.3.6.1.2.1.2.2.1.6",  //mac
-                "1.3.6.1.2.1.2.2.1.7",  //adminStatus
-                "1.3.6.1.2.1.2.2.1.8",  //operStatus
-
-                "1.3.6.1.2.1.2.2.1.10", //inOctets
-                "1.3.6.1.2.1.2.2.1.16", //outOctets
-                "1.3.6.1.2.1.2.2.1.14", //inError
-                "1.3.6.1.2.1.2.2.1.20", //outError
-                "1.3.6.1.2.1.2.2.1.13", //inDiscard
-                "1.3.6.1.2.1.2.2.1.19", //outDiscard
-                "1.3.6.1.2.1.2.2.1.11", //inUcastPkts
-                "1.3.6.1.2.1.2.2.1.17", //outUcastPkts
-                "1.3.6.1.2.1.2.2.1.12", //inNUcastPkts
-                "1.3.6.1.2.1.2.2.1.18"};//outNUcastPkts
-        //String[] IF_OIDS = {"1.3.6.1.2.1.2.2.1.5"};
-
-        String[] IP_OIDS =
-            {"1.3.6.1.2.1.4.20.1.1", //ipAdEntAddr
-                "1.3.6.1.2.1.4.20.1.2", //ipAdEntIfIndex
-                "1.3.6.1.2.1.4.20.1.3"};//ipAdEntNetMask
-        try {
-            transport = new DefaultUdpTransportMapping();
-            snmp = new Snmp(transport);
-            snmp.listen();
-            target = new CommunityTarget();
-            target.setCommunity(new OctetString("public"));
-            target.setRetries(2);
-            target.setAddress(GenericAddress.parse("udp:39.105.178.126/161"));
-            target.setTimeout(8000);
-            target.setVersion(SnmpConstants.version2c);
-            TableUtils tableUtils = new TableUtils(snmp, new PDUFactory() {
-                @Override
-                public PDU createPDU(Target arg0) {
-                    PDU request = new PDU();
-                    request.setType(PDU.GET);
-                    return request;
-                }
-
-                @Override
-                public PDU createPDU(MessageProcessingModel messageProcessingModel) {
-                    return null;
-                }
-            });
-            OID[] columns = new OID[IF_OIDS.length];
-            for (int i = 0; i < IF_OIDS.length; i++)
-                columns[i] = new OID(IF_OIDS[i]);
-            @SuppressWarnings("unchecked")
-            List<TableEvent> list = tableUtils.getTable(target, columns, null, null);
-            if(list.size()==1 && list.get(0).getColumns()==null){
-                System.out.println(" null");
-            }else{
-                for(TableEvent event : list){
-                    VariableBinding[] values = event.getColumns();
-                    if(values == null) continue;
-                    System.out.println("interface ---Index："+values[0].getVariable().toString()+"  descr："+values[1].getVariable().toString()+"  type："+values[2].getVariable().toString()+" speed："+values[3].getVariable().toString()+" mac："+values[4].getVariable().toString()+" adminStatus："+values[5].getVariable().toString()+"  operStatus："+values[6].getVariable().toString());
-                    //System.out.println("speed："+values[0].getVariable().toString());
-                }
-            }
-            //获取ip
-            OID[] ipcolumns = new OID[IP_OIDS.length];
-            for (int i = 0; i < IP_OIDS.length; i++)
-                ipcolumns[i] = new OID(IP_OIDS[i]);
-            @SuppressWarnings("unchecked")
-            List<TableEvent> iplist = tableUtils.getTable(target, ipcolumns, null, null);
-            if(iplist.size()==1 && iplist.get(0).getColumns()==null){
-                System.out.println(" null");
-            }else{
-                for(TableEvent event : iplist){
-                    VariableBinding[] values = event.getColumns();
-                    if(values == null) continue;
-                    System.out.println(" IP--->ipAdEntAddr:"+values[0].getVariable().toString()+"   ipAdEntIfIndex:"+values[1].getVariable().toString()+"   ipAdEntNetMask:"+values[2].getVariable().toString());
-                }
-            }
-        } catch(Exception e){
-            e.printStackTrace();
-        }finally{
-            try {
-                if(transport!=null)
-                    transport.close();
-                if(snmp!=null)
-                    snmp.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
 
 
 }
