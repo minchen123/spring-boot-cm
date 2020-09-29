@@ -33,15 +33,20 @@ public class SnmpDemo {
 
     @Scheduled(cron = "${job.cron}")
     private void getServerInfo() {
+        /**
+         * todo 根据服务器配置表，获取服务器的基本信息，遍历开启udp连接循环获取每个服务器的相应信息，涉及多线程
+         */
         SnmpService snmpService=new SnmpService(ip,port,community, version,timeout,retries);
-        try {
-            snmpService.getSnmpGet(Constants.sysDescr,Constants.sysName,Constants.ssCpuIdle);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //snmpService.snmpWalk2(Constants.ifOids);
-        //snmpService.collectDisk();
-        snmpService.snmpWalkDisk(Constants.oidsDisk);
+//        try {
+//            snmpService.getSnmpGet(Constants.sysDescr,Constants.sysName,Constants.ssCpuIdle);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+//        snmpService.collectCPU();
+//        snmpService.collectMemory();
+//        snmpService.collectDisk();
+        snmpService.collectInterface();
     }
 
 }
